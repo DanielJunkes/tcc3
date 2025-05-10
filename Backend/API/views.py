@@ -1,9 +1,13 @@
 from django.http import JsonResponse
-from models import Item
+from API.models import Item
+import json
 
 def create_item(request):
-    item = request.POST.get('item')
-    status = request.POST.get('status')
+    dados = json.loads(request.body)
+    item = dados.get('item')
+    status = dados.get('status')
+
+    print(f'item q veio da api: {item}, {status}')
     
     # Crie um novo item com os dados fornecidos
     item = Item(item=item, status=status) 
@@ -11,7 +15,7 @@ def create_item(request):
     
     return JsonResponse({'message': 'Item criado com sucesso!'})
     
-def get_itens():
+def get_itens(request):
     
     itens = Item.objects.all().values()
     

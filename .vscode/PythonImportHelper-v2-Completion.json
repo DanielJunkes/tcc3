@@ -89,10 +89,19 @@
     },
     {
         "label": "Item",
-        "importPath": "models",
-        "description": "models",
+        "importPath": "API.models",
+        "description": "API.models",
         "isExtraImport": true,
-        "detail": "models",
+        "detail": "API.models",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
         "documentation": {}
     },
     {
@@ -118,14 +127,6 @@
         "description": "pathlib",
         "isExtraImport": true,
         "detail": "pathlib",
-        "documentation": {}
-    },
-    {
-        "label": "views",
-        "importPath": "API",
-        "description": "API",
-        "isExtraImport": true,
-        "detail": "API",
         "documentation": {}
     },
     {
@@ -186,7 +187,7 @@
         "kind": 2,
         "importPath": "Backend.API.views",
         "description": "Backend.API.views",
-        "peekOfCode": "def create_item(request):\n    item = request.POST.get('item')\n    status = request.POST.get('status')\n    # Crie um novo item com os dados fornecidos\n    item = Item(item=item, status=status) \n    item.save()\n    return JsonResponse({'message': 'Item criado com sucesso!'})\ndef get_itens():\n    itens = Item.objects.all().values()\n    return JsonResponse({'itens': list(itens)})",
+        "peekOfCode": "def create_item(request):\n    dados = json.loads(request.body)\n    item = dados.get('item')\n    status = dados.get('status')\n    print(f'item q veio da api: {item}, {status}')\n    # Crie um novo item com os dados fornecidos\n    item = Item(item=item, status=status) \n    item.save()\n    return JsonResponse({'message': 'Item criado com sucesso!'})\ndef get_itens(request):",
         "detail": "Backend.API.views",
         "documentation": {}
     },
@@ -195,7 +196,7 @@
         "kind": 2,
         "importPath": "Backend.API.views",
         "description": "Backend.API.views",
-        "peekOfCode": "def get_itens():\n    itens = Item.objects.all().values()\n    return JsonResponse({'itens': list(itens)})\ndef get_item(request, item):\n    try:\n        item = Item.objects.get(item = item)\n        return JsonResponse({'item': item.item, 'status': item.status})\n    except Item.DoesNotExist:\n        return JsonResponse({'error': 'Item não encontrado'}, status=404)\ndef update_item(request, item):",
+        "peekOfCode": "def get_itens(request):\n    itens = Item.objects.all().values()\n    return JsonResponse({'itens': list(itens)})\ndef get_item(request, item):\n    try:\n        item = Item.objects.get(item = item)\n        return JsonResponse({'item': item.item, 'status': item.status})\n    except Item.DoesNotExist:\n        return JsonResponse({'error': 'Item não encontrado'}, status=404)\ndef update_item(request, item):",
         "detail": "Backend.API.views",
         "documentation": {}
     },
@@ -276,7 +277,7 @@
         "kind": 5,
         "importPath": "Backend.core.settings",
         "description": "Backend.core.settings",
-        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'API',\n]\nMIDDLEWARE = [",
+        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'API',\n    'corsheaders',\n]",
         "detail": "Backend.core.settings",
         "documentation": {}
     },
@@ -285,7 +286,7 @@
         "kind": 5,
         "importPath": "Backend.core.settings",
         "description": "Backend.core.settings",
-        "peekOfCode": "MIDDLEWARE = [\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\n]\nROOT_URLCONF = 'core.urls'",
+        "peekOfCode": "MIDDLEWARE = [\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'corsheaders.middleware.CorsMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\n]\nROOT_URLCONF = 'core.urls'",
         "detail": "Backend.core.settings",
         "documentation": {}
     },
@@ -294,7 +295,43 @@
         "kind": 5,
         "importPath": "Backend.core.settings",
         "description": "Backend.core.settings",
-        "peekOfCode": "ROOT_URLCONF = 'core.urls'\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',",
+        "peekOfCode": "ROOT_URLCONF = 'core.urls'\nCORS_ALLOW_ALL_ORIGINS = True\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOWED_ORIGINS = [\n    'http://localhost:3000',\n]\nCSRF_TRUSTED_ORIGINS = [\n    'http://localhost:3000',\n]\nTEMPLATES = [",
+        "detail": "Backend.core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "CORS_ALLOW_ALL_ORIGINS",
+        "kind": 5,
+        "importPath": "Backend.core.settings",
+        "description": "Backend.core.settings",
+        "peekOfCode": "CORS_ALLOW_ALL_ORIGINS = True\nCORS_ALLOW_CREDENTIALS = True\nCORS_ALLOWED_ORIGINS = [\n    'http://localhost:3000',\n]\nCSRF_TRUSTED_ORIGINS = [\n    'http://localhost:3000',\n]\nTEMPLATES = [\n    {",
+        "detail": "Backend.core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "CORS_ALLOW_CREDENTIALS",
+        "kind": 5,
+        "importPath": "Backend.core.settings",
+        "description": "Backend.core.settings",
+        "peekOfCode": "CORS_ALLOW_CREDENTIALS = True\nCORS_ALLOWED_ORIGINS = [\n    'http://localhost:3000',\n]\nCSRF_TRUSTED_ORIGINS = [\n    'http://localhost:3000',\n]\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',",
+        "detail": "Backend.core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "CORS_ALLOWED_ORIGINS",
+        "kind": 5,
+        "importPath": "Backend.core.settings",
+        "description": "Backend.core.settings",
+        "peekOfCode": "CORS_ALLOWED_ORIGINS = [\n    'http://localhost:3000',\n]\nCSRF_TRUSTED_ORIGINS = [\n    'http://localhost:3000',\n]\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [],",
+        "detail": "Backend.core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "CSRF_TRUSTED_ORIGINS",
+        "kind": 5,
+        "importPath": "Backend.core.settings",
+        "description": "Backend.core.settings",
+        "peekOfCode": "CSRF_TRUSTED_ORIGINS = [\n    'http://localhost:3000',\n]\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [",
         "detail": "Backend.core.settings",
         "documentation": {}
     },
@@ -413,6 +450,42 @@
         "description": "Backend.manage",
         "peekOfCode": "def main():\n    \"\"\"Run administrative tasks.\"\"\"\n    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')\n    try:\n        from django.core.management import execute_from_command_line\n    except ImportError as exc:\n        raise ImportError(\n            \"Couldn't import Django. Are you sure it's installed and \"\n            \"available on your PYTHONPATH environment variable? Did you \"\n            \"forget to activate a virtual environment?\"",
         "detail": "Backend.manage",
+        "documentation": {}
+    },
+    {
+        "label": "_Known",
+        "kind": 6,
+        "importPath": "Frontend - React.tela.node_modules.flatted.python.flatted",
+        "description": "Frontend - React.tela.node_modules.flatted.python.flatted",
+        "peekOfCode": "class _Known:\n    def __init__(self):\n        self.key = []\n        self.value = []\nclass _String:\n    def __init__(self, value):\n        self.value = value\ndef _array_keys(value):\n    keys = []\n    i = 0",
+        "detail": "Frontend - React.tela.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "_String",
+        "kind": 6,
+        "importPath": "Frontend - React.tela.node_modules.flatted.python.flatted",
+        "description": "Frontend - React.tela.node_modules.flatted.python.flatted",
+        "peekOfCode": "class _String:\n    def __init__(self, value):\n        self.value = value\ndef _array_keys(value):\n    keys = []\n    i = 0\n    for _ in value:\n        keys.append(i)\n        i += 1\n    return keys",
+        "detail": "Frontend - React.tela.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "parse",
+        "kind": 2,
+        "importPath": "Frontend - React.tela.node_modules.flatted.python.flatted",
+        "description": "Frontend - React.tela.node_modules.flatted.python.flatted",
+        "peekOfCode": "def parse(value, *args, **kwargs):\n    json = _json.loads(value, *args, **kwargs)\n    wrapped = []\n    for value in json:\n        wrapped.append(_wrap(value))\n    input = []\n    for value in wrapped:\n        if isinstance(value, _String):\n            input.append(value.value)\n        else:",
+        "detail": "Frontend - React.tela.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "stringify",
+        "kind": 2,
+        "importPath": "Frontend - React.tela.node_modules.flatted.python.flatted",
+        "description": "Frontend - React.tela.node_modules.flatted.python.flatted",
+        "peekOfCode": "def stringify(value, *args, **kwargs):\n    known = _Known()\n    input = []\n    output = []\n    i = int(_index(known, input, value))\n    while i < len(input):\n        output.append(_transform(known, input, input[i]))\n        i += 1\n    return _json.dumps(output, *args, **kwargs)",
+        "detail": "Frontend - React.tela.node_modules.flatted.python.flatted",
         "documentation": {}
     }
 ]
