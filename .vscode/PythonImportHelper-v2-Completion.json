@@ -178,7 +178,7 @@
         "kind": 5,
         "importPath": "Backend.API.urls",
         "description": "Backend.API.urls",
-        "peekOfCode": "urlpatterns = [\n    path('get_itens/', views.get_itens, name='get_itens'),\n    path('create_item/', views.create_item, name='create_item'),\n    path('get_item/<str:item>/', views.get_item, name='get_item'),\n    path('update_item/<str:item>/', views.update_item, name='update_item'),\n    path('delete_item/<str:item>/', views.delete_item, name='delete_item'),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('get_itens/', views.get_itens, name='get_itens'),\n    path('create_item/', views.create_item, name='create_item'),\n    path('update_item/<str:id>/', views.update_item, name='update_item'),\n    path('delete_item/<str:id>/', views.delete_item, name='delete_item'),\n]",
         "detail": "Backend.API.urls",
         "documentation": {}
     },
@@ -187,7 +187,7 @@
         "kind": 2,
         "importPath": "Backend.API.views",
         "description": "Backend.API.views",
-        "peekOfCode": "def create_item(request):\n    dados = json.loads(request.body)\n    item = dados.get('item')\n    status = dados.get('status')\n    print(f'item q veio da api: {item}, {status}')\n    # Crie um novo item com os dados fornecidos\n    item = Item(item=item, status=status) \n    item.save()\n    return JsonResponse({'message': 'Item criado com sucesso!'})\ndef get_itens(request):",
+        "peekOfCode": "def create_item(request):\n    dados = json.loads(request.body)\n    item = dados.get('item')\n    status = dados.get('status')\n    item = Item(item=item, status=status)\n    item.save()\n    return JsonResponse({'message': 'Item criado com sucesso!', 'item': {'id': item.id, 'item': item.item, 'status': item.status}})\ndef get_itens(request):\n    itens = Item.objects.all().values()\n    return JsonResponse({'itens': list(itens)})",
         "detail": "Backend.API.views",
         "documentation": {}
     },
@@ -196,16 +196,7 @@
         "kind": 2,
         "importPath": "Backend.API.views",
         "description": "Backend.API.views",
-        "peekOfCode": "def get_itens(request):\n    itens = Item.objects.all().values()\n    return JsonResponse({'itens': list(itens)})\ndef get_item(request, item):\n    try:\n        item = Item.objects.get(item = item)\n        return JsonResponse({'item': item.item, 'status': item.status})\n    except Item.DoesNotExist:\n        return JsonResponse({'error': 'Item não encontrado'}, status=404)\ndef update_item(request, item):",
-        "detail": "Backend.API.views",
-        "documentation": {}
-    },
-    {
-        "label": "get_item",
-        "kind": 2,
-        "importPath": "Backend.API.views",
-        "description": "Backend.API.views",
-        "peekOfCode": "def get_item(request, item):\n    try:\n        item = Item.objects.get(item = item)\n        return JsonResponse({'item': item.item, 'status': item.status})\n    except Item.DoesNotExist:\n        return JsonResponse({'error': 'Item não encontrado'}, status=404)\ndef update_item(request, item):\n    try:\n        item = Item.objects.get(item = item)\n        item.item = request.POST.get('item')",
+        "peekOfCode": "def get_itens(request):\n    itens = Item.objects.all().values()\n    return JsonResponse({'itens': list(itens)})\ndef update_item(request, id):\n    try:\n        item = Item.objects.get(id = id)\n        dados = json.loads(request.body)\n        item.item = dados.get('item')\n        item.status = dados.get('status')\n        item.save()",
         "detail": "Backend.API.views",
         "documentation": {}
     },
@@ -214,7 +205,7 @@
         "kind": 2,
         "importPath": "Backend.API.views",
         "description": "Backend.API.views",
-        "peekOfCode": "def update_item(request, item):\n    try:\n        item = Item.objects.get(item = item)\n        item.item = request.POST.get('item')\n        item.status = request.POST.get('status')\n        item.save()\n        return JsonResponse({'message': 'Item atualizado com sucesso!'})\n    except Item.DoesNotExist:\n        return JsonResponse({'error': 'Item não encontrado'}, status=404)\ndef delete_item(request, item):",
+        "peekOfCode": "def update_item(request, id):\n    try:\n        item = Item.objects.get(id = id)\n        dados = json.loads(request.body)\n        item.item = dados.get('item')\n        item.status = dados.get('status')\n        item.save()\n        return JsonResponse({'message': 'Item atualizado com sucesso!'})\n    except Item.DoesNotExist:\n        return JsonResponse({'error': 'Item não encontrado'}, status=404)",
         "detail": "Backend.API.views",
         "documentation": {}
     },
@@ -223,7 +214,7 @@
         "kind": 2,
         "importPath": "Backend.API.views",
         "description": "Backend.API.views",
-        "peekOfCode": "def delete_item(request, item):\n    try:\n        item = Item.objects.get(item = item)\n        item.delete()\n        return JsonResponse({'message': 'Item deletado com sucesso!'})\n    except Item.DoesNotExist:\n        return JsonResponse({'error': 'Item não encontrado'}, status=404)",
+        "peekOfCode": "def delete_item(request, id):\n    try:\n        item = Item.objects.get(id = id)\n        item.delete()\n        return JsonResponse({'message': 'Item deletado com sucesso!'})\n    except Item.DoesNotExist:\n        return JsonResponse({'error': 'Item não encontrado'}, status=404)",
         "detail": "Backend.API.views",
         "documentation": {}
     },

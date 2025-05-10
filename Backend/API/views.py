@@ -7,13 +7,10 @@ def create_item(request):
     item = dados.get('item')
     status = dados.get('status')
 
-    print(f'item q veio da api: {item}, {status}')
-    
-    # Crie um novo item com os dados fornecidos
-    item = Item(item=item, status=status) 
+    item = Item(item=item, status=status)
     item.save()
     
-    return JsonResponse({'message': 'Item criado com sucesso!'})
+    return JsonResponse({'message': 'Item criado com sucesso!', 'item': {'id': item.id, 'item': item.item, 'status': item.status}})
     
 def get_itens(request):
     
@@ -21,28 +18,22 @@ def get_itens(request):
     
     return JsonResponse({'itens': list(itens)})
 
-def get_item(request, item):
+def update_item(request, id):
     try:
-        item = Item.objects.get(item = item)
-        return JsonResponse({'item': item.item, 'status': item.status})
-    except Item.DoesNotExist:
-        return JsonResponse({'error': 'Item não encontrado'}, status=404)
-    
-def update_item(request, item):
-    try:
-        item = Item.objects.get(item = item)
+        item = Item.objects.get(id = id)
+        dados = json.loads(request.body)
         
-        item.item = request.POST.get('item')
-        item.status = request.POST.get('status')
+        item.item = dados.get('item')
+        item.status = dados.get('status')
         
         item.save()
         return JsonResponse({'message': 'Item atualizado com sucesso!'})
     except Item.DoesNotExist:
         return JsonResponse({'error': 'Item não encontrado'}, status=404)
     
-def delete_item(request, item):
+def delete_item(request, id):
     try:
-        item = Item.objects.get(item = item)
+        item = Item.objects.get(id = id)
         item.delete()
         return JsonResponse({'message': 'Item deletado com sucesso!'})
     except Item.DoesNotExist:
