@@ -10,7 +10,10 @@ def create_item(request):
     item = Item(item=item, status=status)
     item.save()
     
-    return JsonResponse({'message': 'Item criado com sucesso!', 'item': {'id': item.id, 'item': item.item, 'status': item.status}})
+    return JsonResponse({'message': 
+    'Item criado com sucesso!', 
+    'item': {'id': item.id, 'item': item.item, 
+    'status': item.status}})
     
 def get_itens(request):
     
@@ -27,14 +30,18 @@ def update_item(request, id):
         item.status = dados.get('status')
         
         item.save()
-        return JsonResponse({'message': 'Item atualizado com sucesso!'})
+        return JsonResponse({'message': 
+            'Item atualizado com sucesso!'})
     except Item.DoesNotExist:
-        return JsonResponse({'error': 'Item não encontrado'}, status=404)
+        return JsonResponse({'error': 
+            'Item não encontrado'}, status=404)
     
 def delete_item(request, id):
     try:
         item = Item.objects.get(id = id)
         item.delete()
-        return JsonResponse({'message': 'Item deletado com sucesso!'})
+        return JsonResponse({'message': 
+            'Item deletado com sucesso!'})
     except Item.DoesNotExist:
-        return JsonResponse({'error': 'Item não encontrado'}, status=404)
+        return JsonResponse({'error': 
+            'Item não encontrado'}, status=404)
