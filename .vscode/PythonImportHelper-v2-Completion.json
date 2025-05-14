@@ -24,6 +24,46 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
         "label": "admin",
         "importPath": "django.contrib",
         "description": "django.contrib",
@@ -48,11 +88,35 @@
         "documentation": {}
     },
     {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
         "label": "TestCase",
         "importPath": "django.test",
         "description": "django.test",
         "isExtraImport": true,
         "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
         "documentation": {}
     },
     {
@@ -88,6 +152,22 @@
         "documentation": {}
     },
     {
+        "label": "HttpResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "JsonResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
         "label": "Item",
         "importPath": "API.models",
         "description": "API.models",
@@ -102,6 +182,38 @@
         "importPath": "json",
         "description": "json",
         "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "Item",
+        "importPath": "api_htmx.models",
+        "description": "api_htmx.models",
+        "isExtraImport": true,
+        "detail": "api_htmx.models",
+        "documentation": {}
+    },
+    {
+        "label": "Item",
+        "importPath": "api_htmx.models",
+        "description": "api_htmx.models",
+        "isExtraImport": true,
+        "detail": "api_htmx.models",
+        "documentation": {}
+    },
+    {
+        "label": "htmx_views",
+        "importPath": "api_htmx",
+        "description": "api_htmx",
+        "isExtraImport": true,
+        "detail": "api_htmx",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
@@ -214,8 +326,71 @@
         "kind": 2,
         "importPath": "Backend.API.views",
         "description": "Backend.API.views",
-        "peekOfCode": "def delete_item(request, id):\n    try:\n        item = Item.objects.get(id = id)\n        item.delete()\n        return JsonResponse({'message': 'Item deletado com sucesso!'})\n    except Item.DoesNotExist:\n        return JsonResponse({'error': 'Item não encontrado'}, status=404)",
+        "peekOfCode": "def delete_item(request, id):\n    try:\n        item = Item.objects.get(id = id)\n        item.delete()\n        return JsonResponse({'message': \n            'Item deletado com sucesso!'})\n    except Item.DoesNotExist:\n        return JsonResponse({'error': \n            'Item não encontrado'}, status=404)",
         "detail": "Backend.API.views",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "Backend.api_htmx.migrations.0001_initial",
+        "description": "Backend.api_htmx.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Item',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('item', models.CharField(max_length=255)),",
+        "detail": "Backend.api_htmx.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "ApiHtmxConfig",
+        "kind": 6,
+        "importPath": "Backend.api_htmx.apps",
+        "description": "Backend.api_htmx.apps",
+        "peekOfCode": "class ApiHtmxConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'api_htmx'",
+        "detail": "Backend.api_htmx.apps",
+        "documentation": {}
+    },
+    {
+        "label": "create_item",
+        "kind": 2,
+        "importPath": "Backend.api_htmx.htmx_views",
+        "description": "Backend.api_htmx.htmx_views",
+        "peekOfCode": "def create_item(request):\n    item_request = request.POST.get('item')\n    item = Item(item_request, False)\n    print(item)\n    return HttpResponse('aaaaaaaaaaaaa')",
+        "detail": "Backend.api_htmx.htmx_views",
+        "documentation": {}
+    },
+    {
+        "label": "Item",
+        "kind": 6,
+        "importPath": "Backend.api_htmx.models",
+        "description": "Backend.api_htmx.models",
+        "peekOfCode": "class Item(models.Model):\n    item = models.CharField(max_length=255)\n    status = models.BooleanField(default=False)\n    def __str__(self):\n        return f'item: {self.item}, status: {self.status}'",
+        "detail": "Backend.api_htmx.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "Backend.api_htmx.urls",
+        "description": "Backend.api_htmx.urls",
+        "peekOfCode": "urlpatterns = [\n    path('', views.get_itens, name='get_itens'),\n]\nhtmx_patterns = [\n    path('create_item', htmx_views.create_item, name='create_item'),\n]\nurlpatterns += htmx_patterns",
+        "detail": "Backend.api_htmx.urls",
+        "documentation": {}
+    },
+    {
+        "label": "htmx_patterns",
+        "kind": 5,
+        "importPath": "Backend.api_htmx.urls",
+        "description": "Backend.api_htmx.urls",
+        "peekOfCode": "htmx_patterns = [\n    path('create_item', htmx_views.create_item, name='create_item'),\n]\nurlpatterns += htmx_patterns",
+        "detail": "Backend.api_htmx.urls",
+        "documentation": {}
+    },
+    {
+        "label": "get_itens",
+        "kind": 2,
+        "importPath": "Backend.api_htmx.views",
+        "description": "Backend.api_htmx.views",
+        "peekOfCode": "def get_itens(request):\n    return render(request, 'list_itens.html')",
+        "detail": "Backend.api_htmx.views",
         "documentation": {}
     },
     {
@@ -268,7 +443,7 @@
         "kind": 5,
         "importPath": "Backend.core.settings",
         "description": "Backend.core.settings",
-        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'API',\n    'corsheaders',\n]",
+        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'API',\n    'corsheaders',\n    'api_htmx',",
         "detail": "Backend.core.settings",
         "documentation": {}
     },
@@ -313,7 +488,7 @@
         "kind": 5,
         "importPath": "Backend.core.settings",
         "description": "Backend.core.settings",
-        "peekOfCode": "CORS_ALLOWED_ORIGINS = [\n    'http://localhost:3000',\n]\nCSRF_TRUSTED_ORIGINS = [\n    'http://localhost:3000',\n]\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [],",
+        "peekOfCode": "CORS_ALLOWED_ORIGINS = [\n    'http://localhost:3000',\n]\nCSRF_TRUSTED_ORIGINS = [\n    'http://localhost:3000',\n]\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [os.path.join(BASE_DIR, 'templates')],",
         "detail": "Backend.core.settings",
         "documentation": {}
     },
@@ -322,7 +497,7 @@
         "kind": 5,
         "importPath": "Backend.core.settings",
         "description": "Backend.core.settings",
-        "peekOfCode": "CSRF_TRUSTED_ORIGINS = [\n    'http://localhost:3000',\n]\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [",
+        "peekOfCode": "CSRF_TRUSTED_ORIGINS = [\n    'http://localhost:3000',\n]\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [os.path.join(BASE_DIR, 'templates')],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [",
         "detail": "Backend.core.settings",
         "documentation": {}
     },
@@ -331,7 +506,7 @@
         "kind": 5,
         "importPath": "Backend.core.settings",
         "description": "Backend.core.settings",
-        "peekOfCode": "TEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',\n                'django.contrib.messages.context_processors.messages',",
+        "peekOfCode": "TEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [os.path.join(BASE_DIR, 'templates')],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',\n                'django.contrib.messages.context_processors.messages',",
         "detail": "Backend.core.settings",
         "documentation": {}
     },
@@ -421,7 +596,7 @@
         "kind": 5,
         "importPath": "Backend.core.urls",
         "description": "Backend.core.urls",
-        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('api/', include('API.urls')),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('api/', include('API.urls')),\n    path('api_htmx/', include('api_htmx.urls')),\n]",
         "detail": "Backend.core.urls",
         "documentation": {}
     },
