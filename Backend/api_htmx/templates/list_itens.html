@@ -11,18 +11,17 @@
         <div class="contaneir">
             <div class="row">
                 <div class="col-md">
-                  <form>
-                    <input type="text" name="item" class="form-control">
-                    <button clas="btn btn-sucess"
-                    htmx-post="{% url 'create_item' %}"
-                    htmx-trigget="click"
-                    htmx-target="#list-itens"
-                    >Salvar</button>
+                  <form
+                    hx-post="{% url 'create_item' %}"
+                    hx-trigger="submit"
+                    hx-target="#list-itens">
+                    <input type="text" name="item" class="form-control" required>
+                    <button clas="btn btn-sucess" type="submit">Salvar</button>
                   </form>
                 </div>
             </div>
             <div id="list-itens">
-
+                {% include "partials/htmx_components/itens.html" %}
             </div>
         </div>
 

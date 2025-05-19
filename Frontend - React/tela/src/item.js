@@ -1,5 +1,5 @@
-import React from "react";
-import "./App.css";
+import React, { useState } from "react";
+import "./item.css";
 
 function Tarefa({tarefa, removerTarefa}) {
   const item = tarefa;
@@ -27,7 +27,6 @@ function Tarefa({tarefa, removerTarefa}) {
   };
 
   const deletarItem = async (e) => {
-
       removerTarefa(item.id);
 
       await fetch(`http://127.0.0.1:8000/api/delete_item/${item.id}/`, {
@@ -47,9 +46,7 @@ function Tarefa({tarefa, removerTarefa}) {
     
   const alterarStatus = () => {
     item.status = !status;
-
     setStatus(!status);
-
     updateItem();
   };
 
@@ -61,52 +58,70 @@ function Tarefa({tarefa, removerTarefa}) {
       setEditar(!editar);
     } else {
       item.item = itemNovo;
-
       updateItem();
-
       setEditar(!editar);
     }
   };
 
   return (
-    <div>
-      {!editar && (
-        <div>
-          <h1>{item.item}</h1>
-          <input
-            type="checkbox"
-            checked={status}
-            onChange={() => alterarStatus()}
-            />
-            <input
-        type="button"
-        value={'Excluir'}
-        onClick={() => deletarItem()}
-      />
-        </div>
-      )}
-      {editar && (
-        <input
-          type="text"
-          id={item.id}
-          defaultValue={item.item}
-          placeholder="Digite sua tarefa"
+    <div className="tarefa-container">
+      <div className="tarefa-checkbox">
+        <input 
+          type="checkbox" 
+          checked={status}
+          onChange={() => alterarStatus()}
         />
-      )}
-      <input
-        type="button"
-        value={editar ? "Salvar" : "Editar"}
-        onClick={editar ? alterarItem : () => setEditar(!editar)}
-      />
-      {editar && (
-        <div>
+      </div>
+      
+      <div className="tarefa-content">
+        {!editar ? (
+          <p className={status ? 'tarefa-completed' : ''}>
+            {item.item}
+          </p>
+        ) : (
           <input
-            type="button"
-            value="Cancelar"
-            onClick={() => setEditar(!editar)}
+            type="text"
+            id={item.id}
+            defaultValue={item.item}
+            placeholder="Digite sua tarefa"
+            className="tarefa-edit-input"
           />
-        </div>
-      )}
+        )}
+      </div>
+      
+      <div className="tarefa-actions">
+        {editar ? (
+          <>
+            <button 
+              className="tarefa-btn tarefa-save-btn" 
+              onClick={alterarItem}
+            >
+              ✓
+            </button>
+            <button 
+              className="tarefa-btn tarefa-cancel-btn" 
+              onClick={() => setEditar(!editar)}
+            >
+              ✕
+            </button>
+          </>
+        ) : (
+          <>
+            <button 
+              className="tarefa-btn tarefa-edit-btn" 
+              onClick={() => setEditar(!editar)}
+            >
+              ✎
+            </button>
+            <button 
+              className="tarefa-btn tarefa-delete-btn" 
+              onClick={deletarItem}
+            >
+              ×
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 }

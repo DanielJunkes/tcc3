@@ -1,0 +1,119 @@
+/* Estilos para o componente Tarefa */
+.tarefa-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 10px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.tarefa-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Seção esquerda com checkbox */
+.tarefa-checkbox {
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.tarefa-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
+  cursor: pointer;
+}
+
+/* Seção central com o conteúdo da tarefa */
+.tarefa-content {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.tarefa-content p {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  word-break: break-word;
+  transition: text-decoration 0.3s, color 0.3s;
+}
+
+.tarefa-completed {
+  text-decoration: line-through;
+  color: #888 !important;
+}
+
+.tarefa-edit-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 2px solid #667eea;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Seção direita com os botões de ação */
+.tarefa-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.tarefa-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  padding: 0;
+  color: white;
+  font-size: 16px;
+}
+
+.tarefa-edit-btn {
+  background-color: #3498db;
+}
+
+.tarefa-edit-btn:hover {
+  background-color: #2980b9;
+}
+
+.tarefa-delete-btn {
+  background-color: #ff6b6b;
+}
+
+.tarefa-delete-btn:hover {
+  background-color: #ff5252;
+}
+
+.tarefa-save-btn {
+  background-color: #4caf50;
+}
+
+.tarefa-save-btn:hover {
+  background-color: #45a049;
+}
+
+.tarefa-cancel-btn {
+  background-color: #f39c12;
+}
+
+.tarefa-cancel-btn:hover {
+  background-color: #e67e22;
+}
+
+/* Animação para novos itens */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

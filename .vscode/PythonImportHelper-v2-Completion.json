@@ -201,11 +201,11 @@
         "documentation": {}
     },
     {
-        "label": "htmx_views",
-        "importPath": "api_htmx",
-        "description": "api_htmx",
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "api_htmx",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
@@ -214,6 +214,14 @@
         "description": "django.shortcuts",
         "isExtraImport": true,
         "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "htmx_views",
+        "importPath": "api_htmx",
+        "description": "api_htmx",
+        "isExtraImport": true,
+        "detail": "api_htmx",
         "documentation": {}
     },
     {
@@ -353,7 +361,52 @@
         "kind": 2,
         "importPath": "Backend.api_htmx.htmx_views",
         "description": "Backend.api_htmx.htmx_views",
-        "peekOfCode": "def create_item(request):\n    item_request = request.POST.get('item')\n    item = Item(item_request, False)\n    print(item)\n    return HttpResponse('aaaaaaaaaaaaa')",
+        "peekOfCode": "def create_item(request):\n    item_request = request.POST.get('item')\n    item = Item(item = item_request, status = False)\n    item.save()\n    itens = Item.objects.all()\n    return render(request, 'partials/htmx_components/itens.html', {'itens': itens})\ndef delete_item(request, item_id):\n    item = Item.objects.get(id=item_id)\n    item.delete()\n    itens = Item.objects.all()",
+        "detail": "Backend.api_htmx.htmx_views",
+        "documentation": {}
+    },
+    {
+        "label": "delete_item",
+        "kind": 2,
+        "importPath": "Backend.api_htmx.htmx_views",
+        "description": "Backend.api_htmx.htmx_views",
+        "peekOfCode": "def delete_item(request, item_id):\n    item = Item.objects.get(id=item_id)\n    item.delete()\n    itens = Item.objects.all()\n    return render(request, 'partials/htmx_components/itens.html', {'itens': itens})\ndef toggle_status(request, item_id):\n    item = Item.objects.get(id=item_id)\n        # Inverte o status atual\n    item.status = not item.status\n    item.save()",
+        "detail": "Backend.api_htmx.htmx_views",
+        "documentation": {}
+    },
+    {
+        "label": "toggle_status",
+        "kind": 2,
+        "importPath": "Backend.api_htmx.htmx_views",
+        "description": "Backend.api_htmx.htmx_views",
+        "peekOfCode": "def toggle_status(request, item_id):\n    item = Item.objects.get(id=item_id)\n        # Inverte o status atual\n    item.status = not item.status\n    item.save()\n    itens = Item.objects.all()\n    return render(request, 'partials/htmx_components/itens.html', {'itens': itens})\ndef edit_item_form(request, item_id):\n    \"\"\"Retorna o formulário de edição para um item específico\"\"\"\n    item = Item.objects.get(id=item_id)",
+        "detail": "Backend.api_htmx.htmx_views",
+        "documentation": {}
+    },
+    {
+        "label": "edit_item_form",
+        "kind": 2,
+        "importPath": "Backend.api_htmx.htmx_views",
+        "description": "Backend.api_htmx.htmx_views",
+        "peekOfCode": "def edit_item_form(request, item_id):\n    \"\"\"Retorna o formulário de edição para um item específico\"\"\"\n    item = Item.objects.get(id=item_id)\n    return render(request, 'partials/htmx_components/edit_item_form.html', {'item': item})\ndef update_item(request, item_id):\n    \"\"\"Atualiza o nome do item com base no formulário enviado\"\"\"\n    item = Item.objects.get(id=item_id)\n    item.item = request.POST.get('item_name')\n    item.save()\n    itens = Item.objects.all()",
+        "detail": "Backend.api_htmx.htmx_views",
+        "documentation": {}
+    },
+    {
+        "label": "update_item",
+        "kind": 2,
+        "importPath": "Backend.api_htmx.htmx_views",
+        "description": "Backend.api_htmx.htmx_views",
+        "peekOfCode": "def update_item(request, item_id):\n    \"\"\"Atualiza o nome do item com base no formulário enviado\"\"\"\n    item = Item.objects.get(id=item_id)\n    item.item = request.POST.get('item_name')\n    item.save()\n    itens = Item.objects.all()\n    return render(request, 'partials/htmx_components/itens.html', {'itens': itens})\ndef get_item(request, item_id):\n    \"\"\"Retorna a visualização normal de um item (usado para cancelar a edição)\"\"\"\n    item = Item.objects.get(id=item_id)",
+        "detail": "Backend.api_htmx.htmx_views",
+        "documentation": {}
+    },
+    {
+        "label": "get_item",
+        "kind": 2,
+        "importPath": "Backend.api_htmx.htmx_views",
+        "description": "Backend.api_htmx.htmx_views",
+        "peekOfCode": "def get_item(request, item_id):\n    \"\"\"Retorna a visualização normal de um item (usado para cancelar a edição)\"\"\"\n    item = Item.objects.get(id=item_id)\n    return render(request, 'partials/htmx_components/item_row.html', {'item': item})",
         "detail": "Backend.api_htmx.htmx_views",
         "documentation": {}
     },
@@ -371,7 +424,7 @@
         "kind": 5,
         "importPath": "Backend.api_htmx.urls",
         "description": "Backend.api_htmx.urls",
-        "peekOfCode": "urlpatterns = [\n    path('', views.get_itens, name='get_itens'),\n]\nhtmx_patterns = [\n    path('create_item', htmx_views.create_item, name='create_item'),\n]\nurlpatterns += htmx_patterns",
+        "peekOfCode": "urlpatterns = [\n    path('', views.get_itens, name='list_itens'),\n]\nhtmx_patterns = [\n    path('create_item', htmx_views.create_item, name='create_item'),\n    path('delete_item/<int:item_id>/', htmx_views.delete_item, name='delete_item'),\n    path('toggle-status/<int:item_id>/', htmx_views.toggle_status, name='toggle_status'),\n    path('edit-item-form/<int:item_id>/', htmx_views.edit_item_form, name='edit_item_form'),\n    path('update-item/<int:item_id>/', htmx_views.update_item, name='update_item'),\n    path('get-item/<int:item_id>/', htmx_views.get_item, name='get_item'),",
         "detail": "Backend.api_htmx.urls",
         "documentation": {}
     },
@@ -380,7 +433,7 @@
         "kind": 5,
         "importPath": "Backend.api_htmx.urls",
         "description": "Backend.api_htmx.urls",
-        "peekOfCode": "htmx_patterns = [\n    path('create_item', htmx_views.create_item, name='create_item'),\n]\nurlpatterns += htmx_patterns",
+        "peekOfCode": "htmx_patterns = [\n    path('create_item', htmx_views.create_item, name='create_item'),\n    path('delete_item/<int:item_id>/', htmx_views.delete_item, name='delete_item'),\n    path('toggle-status/<int:item_id>/', htmx_views.toggle_status, name='toggle_status'),\n    path('edit-item-form/<int:item_id>/', htmx_views.edit_item_form, name='edit_item_form'),\n    path('update-item/<int:item_id>/', htmx_views.update_item, name='update_item'),\n    path('get-item/<int:item_id>/', htmx_views.get_item, name='get_item'),\n]\nurlpatterns += htmx_patterns",
         "detail": "Backend.api_htmx.urls",
         "documentation": {}
     },
@@ -389,7 +442,7 @@
         "kind": 2,
         "importPath": "Backend.api_htmx.views",
         "description": "Backend.api_htmx.views",
-        "peekOfCode": "def get_itens(request):\n    return render(request, 'list_itens.html')",
+        "peekOfCode": "def get_itens(request):\n    itens = Item.objects.all()\n    return render(request, 'list_itens.html', {'itens': itens})",
         "detail": "Backend.api_htmx.views",
         "documentation": {}
     },

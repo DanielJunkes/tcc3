@@ -1,0 +1,31 @@
+{% if itens %}
+
+    <ul class="list-group">
+
+        {% for item in itens %}
+            <li class="list-group-item d-flex justify-content-between align-items-center" id="item-{{ item.id }}">
+                <div class="d-flex align-items-center">
+                    <span class="item-text me-2">{{item.item}}</span>
+                    <input type="checkbox" 
+                           {% if item.status %}checked{% endif %}
+                           hx-post="{% url 'toggle_status' item.id %}"
+                           hx-target="#list-itens"
+                           hx-trigger="change"/>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-sm" 
+                            hx-get="{% url 'edit_item_form' item.id %}" 
+                            hx-target="#item-{{ item.id }}">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+                    <button class="btn btn-danger btn-sm" 
+                            hx-delete="{% url 'delete_item' item.id %}" 
+                            hx-target="#list-itens" >
+                        <i class="fas fa-trash"></i> Deletar
+                    </button>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endif %}
