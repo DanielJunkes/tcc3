@@ -152,14 +152,6 @@
         "documentation": {}
     },
     {
-        "label": "HttpResponse",
-        "importPath": "django.http",
-        "description": "django.http",
-        "isExtraImport": true,
-        "detail": "django.http",
-        "documentation": {}
-    },
-    {
         "label": "JsonResponse",
         "importPath": "django.http",
         "description": "django.http",
@@ -370,7 +362,7 @@
         "kind": 2,
         "importPath": "Backend.api_htmx.htmx_views",
         "description": "Backend.api_htmx.htmx_views",
-        "peekOfCode": "def delete_item(request, item_id):\n    item = Item.objects.get(id=item_id)\n    item.delete()\n    itens = Item.objects.all()\n    return render(request, 'partials/htmx_components/itens.html', {'itens': itens})\ndef toggle_status(request, item_id):\n    item = Item.objects.get(id=item_id)\n        # Inverte o status atual\n    item.status = not item.status\n    item.save()",
+        "peekOfCode": "def delete_item(request, item_id):\n    item = Item.objects.get(id=item_id)\n    item.delete()\n    itens = Item.objects.all()\n    return render(request, 'partials/htmx_components/itens.html', {'itens': itens})\ndef toggle_status(request, item_id):\n    item = Item.objects.get(id=item_id)\n    item.status = not item.status\n    item.save()\n    itens = Item.objects.all()",
         "detail": "Backend.api_htmx.htmx_views",
         "documentation": {}
     },
@@ -379,7 +371,7 @@
         "kind": 2,
         "importPath": "Backend.api_htmx.htmx_views",
         "description": "Backend.api_htmx.htmx_views",
-        "peekOfCode": "def toggle_status(request, item_id):\n    item = Item.objects.get(id=item_id)\n        # Inverte o status atual\n    item.status = not item.status\n    item.save()\n    itens = Item.objects.all()\n    return render(request, 'partials/htmx_components/itens.html', {'itens': itens})\ndef edit_item_form(request, item_id):\n    \"\"\"Retorna o formulário de edição para um item específico\"\"\"\n    item = Item.objects.get(id=item_id)",
+        "peekOfCode": "def toggle_status(request, item_id):\n    item = Item.objects.get(id=item_id)\n    item.status = not item.status\n    item.save()\n    itens = Item.objects.all()\n    return render(request, 'partials/htmx_components/itens.html', {'itens': itens})\ndef edit_item_form(request, item_id):\n    item = Item.objects.get(id=item_id)\n    return render(request, 'partials/htmx_components/edit_item_form.html', {'item': item})\ndef update_item(request, item_id):",
         "detail": "Backend.api_htmx.htmx_views",
         "documentation": {}
     },
@@ -388,7 +380,7 @@
         "kind": 2,
         "importPath": "Backend.api_htmx.htmx_views",
         "description": "Backend.api_htmx.htmx_views",
-        "peekOfCode": "def edit_item_form(request, item_id):\n    \"\"\"Retorna o formulário de edição para um item específico\"\"\"\n    item = Item.objects.get(id=item_id)\n    return render(request, 'partials/htmx_components/edit_item_form.html', {'item': item})\ndef update_item(request, item_id):\n    \"\"\"Atualiza o nome do item com base no formulário enviado\"\"\"\n    item = Item.objects.get(id=item_id)\n    item.item = request.POST.get('item_name')\n    item.save()\n    itens = Item.objects.all()",
+        "peekOfCode": "def edit_item_form(request, item_id):\n    item = Item.objects.get(id=item_id)\n    return render(request, 'partials/htmx_components/edit_item_form.html', {'item': item})\ndef update_item(request, item_id):\n    item = Item.objects.get(id=item_id)\n    item.item = request.POST.get('item_name')\n    item.save()\n    itens = Item.objects.all()\n    return render(request, 'partials/htmx_components/itens.html', {'itens': itens})\ndef get_item(request, item_id):",
         "detail": "Backend.api_htmx.htmx_views",
         "documentation": {}
     },
@@ -397,7 +389,7 @@
         "kind": 2,
         "importPath": "Backend.api_htmx.htmx_views",
         "description": "Backend.api_htmx.htmx_views",
-        "peekOfCode": "def update_item(request, item_id):\n    \"\"\"Atualiza o nome do item com base no formulário enviado\"\"\"\n    item = Item.objects.get(id=item_id)\n    item.item = request.POST.get('item_name')\n    item.save()\n    itens = Item.objects.all()\n    return render(request, 'partials/htmx_components/itens.html', {'itens': itens})\ndef get_item(request, item_id):\n    \"\"\"Retorna a visualização normal de um item (usado para cancelar a edição)\"\"\"\n    item = Item.objects.get(id=item_id)",
+        "peekOfCode": "def update_item(request, item_id):\n    item = Item.objects.get(id=item_id)\n    item.item = request.POST.get('item_name')\n    item.save()\n    itens = Item.objects.all()\n    return render(request, 'partials/htmx_components/itens.html', {'itens': itens})\ndef get_item(request, item_id):\n    item = Item.objects.get(id=item_id)\n    return render(request, 'partials/htmx_components/item.html', {'item': item})",
         "detail": "Backend.api_htmx.htmx_views",
         "documentation": {}
     },
@@ -406,7 +398,7 @@
         "kind": 2,
         "importPath": "Backend.api_htmx.htmx_views",
         "description": "Backend.api_htmx.htmx_views",
-        "peekOfCode": "def get_item(request, item_id):\n    \"\"\"Retorna a visualização normal de um item (usado para cancelar a edição)\"\"\"\n    item = Item.objects.get(id=item_id)\n    return render(request, 'partials/htmx_components/item_row.html', {'item': item})",
+        "peekOfCode": "def get_item(request, item_id):\n    item = Item.objects.get(id=item_id)\n    return render(request, 'partials/htmx_components/item.html', {'item': item})",
         "detail": "Backend.api_htmx.htmx_views",
         "documentation": {}
     },

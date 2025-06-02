@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center w-100">
     <form class="d-flex align-items-center flex-grow-1" hx-post="{% url 'update_item' item.id %}" hx-target="#list-itens" hx-swap="outerHTML">
-        <input type="text" name="item_name" value="{{ item.item }}" class="form-control me-2">
+        <input type="text" name="item_name" value="{{ item.item }}" class="form-control me-2" required>
         <div class="btn-group">
             <button type="submit" class="btn btn-success btn-sm">
                 <i class="fas fa-save"></i> Salvar

@@ -22,7 +22,6 @@ function App() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           setTarefa([data.item, ...tarefas])
         })
         .catch((err) => {

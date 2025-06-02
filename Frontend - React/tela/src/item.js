@@ -66,57 +66,33 @@ function Tarefa({tarefa, removerTarefa}) {
   return (
     <div className="tarefa-container">
       <div className="tarefa-checkbox">
-        <input 
-          type="checkbox" 
-          checked={status}
-          onChange={() => alterarStatus()}
-        />
+        <input type="checkbox" checked={status} onChange={() => alterarStatus()}/>
       </div>
       
       <div className="tarefa-content">
         {!editar ? (
-          <p className={status ? 'tarefa-completed' : ''}>
-            {item.item}
-          </p>
+          <p className={status ? 'tarefa-completed' : ''}>{item.item}</p>
         ) : (
-          <input
-            type="text"
-            id={item.id}
-            defaultValue={item.item}
-            placeholder="Digite sua tarefa"
-            className="tarefa-edit-input"
-          />
+          <inputm type="text" id={item.id} defaultValue={item.item} placeholder="Digite sua tarefa" className="tarefa-edit-input"/>
         )}
       </div>
       
       <div className="tarefa-actions">
         {editar ? (
           <>
-            <button 
-              className="tarefa-btn tarefa-save-btn" 
-              onClick={alterarItem}
-            >
+            <button className="tarefa-btn tarefa-save-btn" onClick={alterarItem}>
               ✓
             </button>
-            <button 
-              className="tarefa-btn tarefa-cancel-btn" 
-              onClick={() => setEditar(!editar)}
-            >
+            <button className="tarefa-btn tarefa-cancel-btn" onClick={() => setEditar(!editar)}>
               ✕
             </button>
           </>
         ) : (
           <>
-            <button 
-              className="tarefa-btn tarefa-edit-btn" 
-              onClick={() => setEditar(!editar)}
-            >
+            <button className="tarefa-btn tarefa-edit-btn" onClick={() => setEditar(!editar)}>
               ✎
             </button>
-            <button 
-              className="tarefa-btn tarefa-delete-btn" 
-              onClick={deletarItem}
-            >
+            <button className="tarefa-btn tarefa-delete-btn" onClick={deletarItem}>
               ×
             </button>
           </>
