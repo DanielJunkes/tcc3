@@ -73,7 +73,7 @@ function Tarefa({tarefa, removerTarefa}) {
         {!editar ? (
           <p className={status ? 'tarefa-completed' : ''}>{item.item}</p>
         ) : (
-          <inputm type="text" id={item.id} defaultValue={item.item} placeholder="Digite sua tarefa" className="tarefa-edit-input"/>
+          <input type="text" id={item.id} defaultValue={item.item} placeholder="Digite sua tarefa" className="tarefa-edit-input"/>
         )}
       </div>
       
